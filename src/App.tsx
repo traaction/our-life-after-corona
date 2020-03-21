@@ -5,6 +5,7 @@ import { PlaceScreen } from "./components/PlaceScreen";
 
 export function App(): JSX.Element {
   const [showActivityScreen, setShowActivityScreen] = useState<boolean>(true);
+
   const [userName, setUserName] = useState<string>("");
   const [activityUuid, setActivityUuid] = useState<string>("");
   const [placeUuid, setPlaceUuid] = useState<string>("");

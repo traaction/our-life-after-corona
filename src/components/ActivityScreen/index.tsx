@@ -15,33 +15,25 @@ export function ActivityScreen({
   setActivity
 }: IProps): JSX.Element {
   const [userNameInput, setUserNameInput] = useState<string>("");
-  const [activityUuidInput, setActivityUuid] = useState<string>("");
-  const [showActivityText, setShowActivityText] = useState<boolean>(false);
+  const [activityUuidInput, setActivityUuid] = useState<UUID>("");
   const [showActivityInput, setShowActivityInput] = useState<boolean>(false);
 
   return (
     <>
       <>
-        <Typing>
-          <span>Hi, my name is</span>
-        </Typing>
+        <span>Hi, my name is</span>
         <TextField
           onChange={event => {
             setUserNameInput(event.target.value);
           }}
-          onBlur={event => setShowActivityText(true)}
+          onBlur={event => setShowActivityInput(true)}
         />
       </>
 
-      {showActivityText && (
-        <Typing onFinishedTyping={() => setShowActivityInput(true)}>
-          <p>and after the corona pandemic, I want to</p>
-        </Typing>
-      )}
-
       {showActivityInput && (
         <>
-          <SelectActivity />
+          <p>and after the corona pandemic, I want to</p>
+          <SelectActivity {...{ setActivityUuid }} />
 
           <Button
             variant="outlined"
