@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { SelectActivity } from "../SelectActivity";
 import { Button, TextField } from "@material-ui/core";
-import Typewriter from "typewriter-effect";
+import Typing from "react-typing-animation";
 
 interface IProps {
   onNext: () => void;
@@ -16,41 +16,46 @@ export function ActivityScreen({
 }: IProps): JSX.Element {
   const [userNameInput, setUserNameInput] = useState<string>("");
   const [activityUuidInput, setActivityUuid] = useState<string>("");
+  const [showActivityText, setShowActivityText] = useState<boolean>(false);
+  const [showActivityInput, setShowActivityInput] = useState<boolean>(false);
 
   return (
     <>
-      <div>
-        <Typewriter
-          options={{
-            strings: ["Hi,", "my", "name", "is"],
-            autoStart: true,
-            loop: true
-          }}
-        />
-        Hi, my name is{" "}
+      <>
+        <Typing>
+          <span>Hi, my name is</span>
+        </Typing>
         <TextField
           onChange={event => {
             setUserNameInput(event.target.value);
           }}
-        />{" "}
-        and
-      </div>
-      <p>after the corona epidemic, I want to</p>
+          onBlur={event => setShowActivityText(true)}
+        />
+      </>
 
-      {/*TODO: cascade changes up */}
-      <SelectActivity />
+      {showActivityText && (
+        <Typing onFinishedTyping={() => setShowActivityInput(true)}>
+          <p>and after the corona pandemic, I want to</p>
+        </Typing>
+      )}
 
-      <Button
-        variant="outlined"
-        color="primary"
-        onClick={() => {
-          setUserName(userNameInput);
-          setActivity(activityUuidInput);
-          onNext();
-        }}
-      >
-        Create
-      </Button>
+      {showActivityInput && (
+        <>
+          <SelectActivity />
+
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={() => {
+              setUserName(userNameInput);
+              setActivity(activityUuidInput);
+              onNext();
+            }}
+          >
+            Create
+          </Button>
+        </>
+      )}
     </>
   );
 }
