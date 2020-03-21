@@ -23,6 +23,7 @@ Build & push docker container:
     - docker push "$CI_REGISTRY_IMAGE"
   only:
   - master
+  when: manual
   tags:
     - docker
     - privileged
