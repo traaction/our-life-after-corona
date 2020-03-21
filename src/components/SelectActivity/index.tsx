@@ -1,5 +1,5 @@
 import { TextField } from "@material-ui/core";
-import { Autocomplete } from "@material-ui/lab";
+import { Autocomplete, AutocompleteChangeReason } from "@material-ui/lab";
 import fetch from "cross-fetch";
 import React, { useEffect, useState } from "react";
 
@@ -31,22 +31,28 @@ export function SelectActivity(): JSX.Element {
     // return (cleanUp = () => {});
   }, [activities]);
 
+  function onActivityChange(
+    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ): void {
+    console.log(event.target.value);
+  }
+
   return (
     <Autocomplete
       style={{ width: 300 }}
       options={activities}
       autoHighlight
+      freeSolo={true}
       getOptionLabel={option => option.name}
       renderOption={option => option.name}
       renderInput={params => (
         <TextField
           {...params}
-          label="Choose an activity"
-          variant="outlined"
           inputProps={{
             ...params.inputProps,
             autoComplete: "new-password" // disable autocomplete and autofill
           }}
+          onChange={onActivityChange}
         />
       )}
     />

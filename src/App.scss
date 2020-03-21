@@ -6,8 +6,13 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(32px + 2vmin);
   color: #0e0e0e;
+  background-color: rgba(255, 116, 52, 0.74);
+
+  input {
+    font-size: calc(32px + 2vmin);
+  }
 
   &-link {
     color: #61dafb;

@@ -1,20 +1,30 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./App.scss";
-import { SelectActivity } from "./components/SelectActivity";
-import { SelectPlace } from "./components/SelectPlace";
-import { Button } from "@material-ui/core";
+import { ActivityScreen } from "./components/ActivityScreen";
+import { PlaceScreen } from "./components/PlaceScreen";
 
 export function App(): JSX.Element {
+  const [showActivityScreen, setShowActivityScreen] = useState<boolean>(true);
+  const [userName, setUserName] = useState<string>("");
+  const [activityUuid, setActivityUuid] = useState<string>("");
+  const [placeUuid, setPlaceUuid] = useState<string>("");
+
+  useEffect(() => {
+    console.log({ showActivityScreen, userName, activityUuid, placeUuid });
+  }, [showActivityScreen, userName, activityUuid, placeUuid]);
+
   return (
     <div className="App">
-      <p>After the corona epidemic, I want to</p>
-      <SelectActivity />
-      <p>in</p>
-      <SelectPlace />
-
-      <Button variant="outlined" color="primary">
-        Create
-      </Button>
+      {showActivityScreen && (
+        <ActivityScreen
+          setUserName={setUserName}
+          setActivity={setActivityUuid}
+          onNext={() => {
+            setShowActivityScreen(false);
+          }}
+        />
+      )}
+      {!showActivityScreen && <PlaceScreen {...{ setPlaceUuid }} />}
     </div>
   );
 }
