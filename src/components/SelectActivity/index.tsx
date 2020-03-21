@@ -10,6 +10,14 @@ interface IProps {
   setActivityUuid: React.Dispatch<React.SetStateAction<UUID>>;
 }
 
+enum EChangeReason {
+  createOption = "create-option",
+  selectOption = "select-option",
+  removeOption = "remove-option",
+  blur = "blur",
+  "clear" = "clear"
+}
+
 export function SelectActivity({ setActivityUuid }: IProps): JSX.Element {
   const [selectedActivityName, setSelectedActivityName] = useState<string>("");
 
@@ -23,10 +31,10 @@ export function SelectActivity({ setActivityUuid }: IProps): JSX.Element {
       setActivities(data);
     }
 
-    if (activityQuery.length > 0 && activities.length === 0) {
+    if (activityQuery.length > 0) {
       loadActivities();
     }
-  }, [activities, activityQuery]);
+  }, [activityQuery]);
 
   async function createNewActivity(newActivityName: string): Promise<any> {
     // const requestBody = {
@@ -38,22 +46,6 @@ export function SelectActivity({ setActivityUuid }: IProps): JSX.Element {
     // });
     // return await response.json();
   }
-
-  // function onActivityChange(
-  //   event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-  // ): void {
-  //   setActivityQuery(event.target.value);
-
-  //   // API request
-  //   // const response = [];
-
-  //   // if (!response || (Array.isArray(response) && response.length === 0)) {
-  //   //   // New activity!
-  //   //   setActivities([]);
-  //   // } else {
-  //   //   // setIsNewActiviy(false);
-  //   // }
-  // }
 
   function onTextFieldBlur(): void {
     const selectedActivity = activities.filter(
@@ -77,10 +69,18 @@ export function SelectActivity({ setActivityUuid }: IProps): JSX.Element {
       getOptionLabel={option => option.name}
       renderOption={option => option.name}
       selectOnFocus={true}
-      onInputChange={(event, input: string) => {
-        // console.log("Autocomplete.onInputChange");
-        // console.log({ event, input });
-        setSelectedActivityName(input);
+      onInputChange={(event, input: string, reason: string) => {
+        switch (reason) {
+          case EChangeReason.clear: {
+            setActivities([]);
+            setActivityQuery("");
+            break;
+          }
+          default: {
+            setSelectedActivityName(input);
+            break;
+          }
+        }
       }}
       renderInput={params => (
         <TextField

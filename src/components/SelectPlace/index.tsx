@@ -34,12 +34,11 @@ export function SelectPlace({ setSelectedPlaceUuid }: IProps) {
       style={{ width: 300 }}
       options={countries}
       autoHighlight
-      freeSolo={true}
+      freeSolo
       loading={isLoading}
       getOptionLabel={option => option.name}
       renderOption={option => option.name}
-      onChange={(_event, selectedPlace: ICountry | null) => {
-        // console.log(args);
+      onChange={(_event: unknown, selectedPlace: ICountry | null) => {
         if (selectedPlace) {
           setSelectedPlaceUuid(selectedPlace.name);
         }
