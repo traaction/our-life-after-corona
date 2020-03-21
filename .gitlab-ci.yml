@@ -1,0 +1,28 @@
+stages:
+  - test
+  - build
+  - deploy
+
+Run tests:
+  stage: test
+  image: node:lts
+  script:
+    - npm ci
+    - CI=true npm test
+  tags:
+    - docker
+
+Build & push docker container:
+  stage: build
+  image: docker:latest
+  services:
+    - docker:dind
+  script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+    - docker build --pull -t "$CI_REGISTRY_IMAGE" .
+    - docker push "$CI_REGISTRY_IMAGE"
+  only:
+  - master
+  tags:
+    - docker
+    - privileged
