@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { SelectActivity } from "../SelectActivity";
 import { Button, TextField } from "@material-ui/core";
-import Typewriter from "typewriter-effect";
 
 interface IProps {
   onNext: () => void;
@@ -20,13 +19,6 @@ export function ActivityScreen({
   return (
     <>
       <div>
-        <Typewriter
-          options={{
-            strings: ["Hi,", "my", "name", "is"],
-            autoStart: true,
-            loop: true
-          }}
-        />
         Hi, my name is{" "}
         <TextField
           onChange={event => {
