@@ -19,8 +19,7 @@
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
     "react-typing-animation": "^1.6.2",
-    "typescript": "^3.8.3",
-    "typewriter-effect": "^2.13.0"
+    "typescript": "^3.8.3"
   },
   "scripts": {
     "start": "react-scripts start",
