@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import { SelectActivity } from "../SelectActivity";
 import { Button, TextField } from "@material-ui/core";
-<<<<<<< HEAD
-import Typing from "react-typing-animation";
-=======
->>>>>>> cffff13d932d18487de10ea542946f6b56d66775
+import { UUID } from "../../types";
 
 interface IProps {
   onNext: () => void;
