@@ -4,6 +4,7 @@ import { ActivityScreen } from "./components/ActivityScreen";
 import { PlaceScreen } from "./components/PlaceScreen";
 import uuidV4 from "uuid/v4";
 import { useCookies } from "react-cookie";
+import Container from "@material-ui/core/Container";
 
 const COOKIE_NAME = "our-life-after-corona_user-uuid";
 
@@ -31,16 +32,18 @@ export function App(): JSX.Element {
   }, [cookies, setCookie]);
 
   return (
-    <div className="App">
-      {showActivityScreen && (
-        <ActivityScreen
-          setActivity={setActivityUuid}
-          onNext={() => {
-            setShowActivityScreen(false);
-          }}
-        />
-      )}
-      {!showActivityScreen && <PlaceScreen {...{ setPlaceUuid }} />}
-    </div>
+    <Container maxWidth="sm">
+      <div className="App">
+        {showActivityScreen && (
+          <ActivityScreen
+            setActivity={setActivityUuid}
+            onNext={() => {
+              setShowActivityScreen(false);
+            }}
+          />
+        )}
+        {!showActivityScreen && <PlaceScreen {...{ setPlaceUuid }} />}
+      </div>
+    </Container>
   );
 }
