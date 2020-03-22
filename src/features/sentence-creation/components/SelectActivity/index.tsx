@@ -2,7 +2,7 @@ import { TextField } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
 import fetch from "cross-fetch";
 import React, { useEffect, useState } from "react";
-import { IActivity, UUID } from "../../types";
+import { IActivity, UUID } from "../../../../types";
 
 const ACTIVITY_URL = "http://localhost:8080/activities";
 

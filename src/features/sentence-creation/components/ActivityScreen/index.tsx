@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { SelectActivity } from "../SelectActivity";
 import { IconButton } from "@material-ui/core";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
-import { UUID } from "../../types";
+import { UUID } from "../../../../types";
 
 interface IProps {
   onNext: () => void;
