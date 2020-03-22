@@ -46,8 +46,6 @@ export function SelectPlace({ setSelectedPlaceUuid }: IProps) {
       renderInput={params => (
         <TextField
           {...params}
-          label="Choose a place"
-          variant="outlined"
           inputProps={{
             ...params.inputProps,
             autoComplete: "new-password" // disable autocomplete and autofill

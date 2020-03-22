@@ -14,7 +14,8 @@ export function ActivityScreen({ onNext, setActivity }: IProps): JSX.Element {
 
   return (
     <>
-      <p>After the corona pandemic, I want to</p>
+      <p>After the corona pandemic, I want to...</p>
+
       <SelectActivity {...{ setActivityUuid }} />
 
       <IconButton

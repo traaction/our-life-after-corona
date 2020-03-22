@@ -64,11 +64,11 @@ export function SelectActivity({ setActivityUuid }: IProps): JSX.Element {
       style={{ width: 300 }}
       options={activities}
       autoHighlight
-      blurOnSelect={true}
-      freeSolo={true}
+      blurOnSelect
+      freeSolo
+      selectOnFocus
       getOptionLabel={option => option.name}
       renderOption={option => option.name}
-      selectOnFocus={true}
       onInputChange={(event, input: string, reason: string) => {
         switch (reason) {
           case EChangeReason.clear: {
