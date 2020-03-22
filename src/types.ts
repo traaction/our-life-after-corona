@@ -10,9 +10,8 @@ export interface ILocation {
   uuid?: UUID;
 }
 
-export interface ISentence {
+export interface INewSentence {
   userUuid: UUID;
-  userName: string;
   activityUuid: UUID;
   placeUuid: UUID;
   userLocation: {

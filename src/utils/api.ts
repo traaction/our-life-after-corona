@@ -1,9 +1,10 @@
-import { UUID, IActivity, ILocation } from "types";
+import { UUID, IActivity, ILocation, INewSentence } from "types";
 import fetch from "cross-fetch";
 
 enum EEntityType {
   place = "place",
-  activity = "activity"
+  activity = "activity",
+  sentence = "sentence"
 }
 
 /**************
@@ -11,8 +12,6 @@ enum EEntityType {
  *  Activities
  *
  *************/
-
-const ACTIVITIES_URL = "http://localhost:8080/activities";
 
 export async function getActivitiesForQuery(
   query: string
@@ -33,8 +32,6 @@ export async function createNewActivity(
  *
  *************/
 
-const PLACES_URL = "http://localhost:8080/places";
-
 export async function getPlacesForQuery(query: string): Promise<ILocation[]> {
   const response = await fetch(`${PLACES_URL}/${query}`);
   return await response.json();
@@ -48,34 +45,59 @@ export async function createNewPlace(
 
 /**************
  *
+ *  Sentence
+ *
+ *************/
+
+export async function createNewSentence(
+  newSentence: INewSentence
+): Promise<{ uuid: UUID } | undefined> {
+  return createNewEntity(newSentence, EEntityType.sentence);
+}
+
+/**************
+ *
  *  Utils
  *
  *************/
+
+const ACTIVITIES_URL = "http://localhost:8080/activities";
+const PLACES_URL = "http://localhost:8080/places";
+const SENTENCES_URL = "http://localhost:8080/sentences";
 
 /**
  * Create new entity on backend
  */
 async function createNewEntity(
-  entityName: string,
+  entity: string | INewSentence,
   entityType: EEntityType
 ): Promise<{ uuid: UUID } | undefined> {
-  if (entityName) {
+  if (entity) {
     let url: string;
+    let requestBody;
 
     switch (entityType) {
       case EEntityType.activity: {
         url = ACTIVITIES_URL;
+        requestBody = {
+          name: entity
+        };
         break;
       }
       case EEntityType.place: {
         url = PLACES_URL;
+        requestBody = {
+          name: entity
+        };
+        break;
+      }
+      case EEntityType.sentence: {
+        url = SENTENCES_URL;
+        requestBody = entity;
         break;
       }
     }
 
-    const requestBody = {
-      name: entityName
-    };
     const response = await fetch(url, {
       method: "POST",
       headers: {
