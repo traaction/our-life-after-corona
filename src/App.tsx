@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./App.scss";
 import { ActivityScreen } from "./components/ActivityScreen";
 import { PlaceScreen } from "./components/PlaceScreen";
-import uuidv4 from "uuid/v4";
+import uuidV4 from "uuid/v4";
 import { useCookies } from "react-cookie";
 
 const COOKIE_NAME = "our-life-after-corona_user-uuid";
@@ -26,7 +26,7 @@ export function App(): JSX.Element {
   // Setup cookie with userID
   useEffect(() => {
     if (!cookies[COOKIE_NAME]) {
-      setCookie(COOKIE_NAME, uuidv4());
+      setCookie(COOKIE_NAME, uuidV4());
     }
   }, [cookies, setCookie]);
 
