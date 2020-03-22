@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { SelectActivity } from "../SelectActivity";
-import { Button, TextField } from "@material-ui/core";
+import { IconButton } from "@material-ui/core";
+import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import { UUID } from "../../types";
 
 interface IProps {
@@ -16,16 +17,17 @@ export function ActivityScreen({ onNext, setActivity }: IProps): JSX.Element {
       <p>After the corona pandemic, I want to</p>
       <SelectActivity {...{ setActivityUuid }} />
 
-      <Button
-        variant="outlined"
+      <IconButton
+        aria-label="next"
         color="primary"
+        disabled={!activityUuidInput}
         onClick={() => {
           setActivity(activityUuidInput);
           onNext();
         }}
       >
-        Create
-      </Button>
+        <ArrowForwardIcon fontSize="large" />
+      </IconButton>
     </>
   );
 }
