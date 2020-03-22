@@ -4,6 +4,7 @@ import CheckIcon from "@material-ui/icons/Check";
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { INewSentence } from "types";
+import { usePosition } from "use-position";
 import { createNewSentence } from "utils/api";
 import uuidV4 from "uuid/v4";
 import { SelectActivity } from "./components/SelectActivity";
@@ -14,6 +15,7 @@ const COOKIE_NAME = "our-life-after-corona_user-uuid";
 
 export function SentenceCreation(): JSX.Element {
   const [cookies, setCookie] = useCookies([COOKIE_NAME]);
+  const { latitude, longitude } = usePosition();
 
   const [activityUuid, setActivityUuid] = useState<string>("");
   const [placeUuid, setPlaceUuid] = useState<string>("");
@@ -50,15 +52,21 @@ export function SentenceCreation(): JSX.Element {
               color="primary"
               disabled={!activityUuid || !placeUuid}
               onClick={() => {
+                let lat: number = 0;
+                if (latitude) {
+                  lat = latitude;
+                }
+
+                let long: number = 0;
+                if (longitude) {
+                  long = longitude;
+                }
+
                 const newSentence: INewSentence = {
                   userUuid: cookies[COOKIE_NAME],
                   activityUuid,
                   placeUuid,
-                  userLocation: {
-                    // TODO: Add user location
-                    lat: 0,
-                    long: 0
-                  }
+                  userLocation: { lat, long }
                 };
                 createNewSentence(newSentence);
               }}
