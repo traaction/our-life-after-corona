@@ -6,12 +6,10 @@ import { App } from "./App";
 import "./index.scss";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <CookiesProvider>
-        <App />
-      </CookiesProvider>
-    </BrowserRouter>
-  </React.StrictMode>,
+  <BrowserRouter>
+    <CookiesProvider>
+      <App />
+    </CookiesProvider>
+  </BrowserRouter>,
   document.getElementById("root")
 );
