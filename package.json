@@ -16,6 +16,7 @@
     "cross-fetch": "^3.0.4",
     "node-sass": "^4.13.1",
     "react": "^16.13.1",
+    "react-cookie": "^4.0.3",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
     "react-typing-animation": "^1.6.2",
