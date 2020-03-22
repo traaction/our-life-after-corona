@@ -65,5 +65,5 @@ jobs:
         name: eljenso/our-life-after-corona
         username: ${{ secrets.DOCKER_HUB_LOGIN_USERNAME }}
         password: ${{ secrets.DOCKER_HUB_LOGIN_PASSWORD }}
-        tags: ${{ $GITHUB_SHA }}
+        tags: ${{ github.sha }}
         dockerfile: Dockerfile
