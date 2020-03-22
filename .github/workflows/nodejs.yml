@@ -28,18 +28,15 @@ jobs:
     strategy:
       matrix:
         node-version: [12.x]
+    env:
+      IMAGE_TAG: "eljenso/our-life-after-corona:$GITHUB_SHA"
     steps:
     - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: npm ci
-    - run: npm run build
-      env:
-        CI: true
-
-    - run: docker login -u ${{ secrets.DOCKER_HUB_LOGIN_USERNAME }} -p ${{ secrets.DOCKER_HUB_LOGIN_PASSWORD }}
-    - run: docker build --pull -t "$GITHUB_REPOSITORY:$GITHUB_SHA" .
-    - run: docker push "$GITHUB_REPOSITORY:$GITHUB_SHA"
+    - run: echo "$IMAGE_TAG"
+    - name: Build image
+      run: docker build --pull -t "$IMAGE_TAG" .
+    - name: Docker login
+      run: docker login -u ${{ secrets.DOCKER_HUB_LOGIN_USERNAME }} -p ${{ secrets.DOCKER_HUB_LOGIN_PASSWORD }}
+    - name: Push image
+      run: docker push "$IMAGE_TAG"
 
