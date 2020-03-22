@@ -18,14 +18,6 @@ export function SentenceCreation(): JSX.Element {
   const [activityUuid, setActivityUuid] = useState<string>("");
   const [placeUuid, setPlaceUuid] = useState<string>("");
 
-  useEffect(() => {
-    console.log({
-      activityUuid,
-      placeUuid,
-      userUuid: cookies[COOKIE_NAME]
-    });
-  }, [activityUuid, placeUuid, cookies]);
-
   // Setup cookie with userID
   useEffect(() => {
     if (!cookies[COOKIE_NAME]) {
