@@ -68,10 +68,10 @@ export function App(): JSX.Element {
       </Paper>
 
       <Switch>
-        <Route path="/list">
+        <Route path={LIST_PATH}>
           <TodoList {...{ userUuid }} />
         </Route>
-        <Route exact path="/">
+        <Route exact path={HOME_PATH}>
           <SentenceCreation {...{ userUuid }} />
         </Route>
       </Switch>
