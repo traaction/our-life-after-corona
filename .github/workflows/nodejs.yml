@@ -14,7 +14,7 @@ jobs:
         node-version: [12.x]
     steps:
     - uses: actions/checkout@v2
-    - name: Run tests
+    - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
@@ -30,7 +30,7 @@ jobs:
         node-version: [12.x]
     steps:
     - uses: actions/checkout@v2
-    - name: Run tests
+    - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
@@ -39,9 +39,7 @@ jobs:
       env:
         CI: true
 
-    - uses: actions/upload-artifact@v1
-      with:
-        name: react-app-build
-        path: build
-    - name: Build and push container
-      run: ls -la build
+    - run: docker login -u "$DOCKER_HUB_LOGIN_USERNAME" -p "$DOCKER_HUB_LOGIN_PASSWORD"
+    - run: docker build --pull -t "$GITHUB_REPOSITORY:$GITHUB_SHA" .
+    - run: docker push "$GITHUB_REPOSITORY:$GITHUB_SHA"
+
