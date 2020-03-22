@@ -20,3 +20,11 @@ export interface ISentence {
     long: number;
   };
 }
+
+export enum EChangeReason {
+  createOption = "create-option",
+  selectOption = "select-option",
+  removeOption = "remove-option",
+  blur = "blur",
+  "clear" = "clear"
+}
