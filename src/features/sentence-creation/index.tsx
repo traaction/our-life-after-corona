@@ -1,31 +1,22 @@
 import { Grid, IconButton } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
 import CheckIcon from "@material-ui/icons/Check";
-import React, { useEffect, useState } from "react";
-import { useCookies } from "react-cookie";
-import { INewSentence } from "types";
+import React, { useState } from "react";
+import { INewSentence, UUID } from "types";
 import { usePosition } from "use-position";
 import { createNewSentence } from "utils/api";
-import uuidV4 from "uuid/v4";
 import { SelectActivity } from "./components/SelectActivity";
 import { SelectPlace } from "./components/SelectPlace";
 import "./index.scss";
 
-const COOKIE_NAME = "our-life-after-corona_user-uuid";
-
-export function SentenceCreation(): JSX.Element {
-  const [cookies, setCookie] = useCookies([COOKIE_NAME]);
+interface IProps {
+  userUuid: UUID;
+}
+export function SentenceCreation({ userUuid }: IProps): JSX.Element {
   const { latitude, longitude } = usePosition();
 
   const [activityUuid, setActivityUuid] = useState<string>("");
   const [placeUuid, setPlaceUuid] = useState<string>("");
-
-  // Setup cookie with userID
-  useEffect(() => {
-    if (!cookies[COOKIE_NAME]) {
-      setCookie(COOKIE_NAME, uuidV4());
-    }
-  }, [cookies, setCookie]);
 
   return (
     <Grid
@@ -63,7 +54,7 @@ export function SentenceCreation(): JSX.Element {
                 }
 
                 const newSentence: INewSentence = {
-                  userUuid: cookies[COOKIE_NAME],
+                  userUuid,
                   activityUuid,
                   placeUuid,
                   userLocation: { lat, long }

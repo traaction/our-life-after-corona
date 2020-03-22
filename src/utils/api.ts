@@ -1,5 +1,5 @@
-import { UUID, IActivity, ILocation, INewSentence } from "types";
 import fetch from "cross-fetch";
+import { IActivity, ILocation, INewSentence, ISentence, UUID } from "types";
 
 enum EEntityType {
   place = "place",
@@ -48,6 +48,13 @@ export async function createNewPlace(
  *  Sentence
  *
  *************/
+
+export async function getSentencesForUser(
+  userUuid: UUID
+): Promise<ISentence[]> {
+  const response = await fetch(`${SENTENCES_URL}/${userUuid}`);
+  return await response.json();
+}
 
 export async function createNewSentence(
   newSentence: INewSentence

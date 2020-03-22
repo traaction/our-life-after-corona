@@ -19,11 +19,21 @@ export interface INewSentence {
     long: number;
   };
 }
+export interface ISentence {
+  activity: IActivity;
+  place: ILocation;
+  userInfo: {
+    userUUID: UUID;
+    lat: number;
+    long: number;
+  };
+  uuid: UUID;
+}
 
 export enum EChangeReason {
   createOption = "create-option",
   selectOption = "select-option",
   removeOption = "remove-option",
   blur = "blur",
-  "clear" = "clear"
+  clear = "clear"
 }
