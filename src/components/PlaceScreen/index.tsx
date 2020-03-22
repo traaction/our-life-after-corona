@@ -7,8 +7,6 @@ interface IProps {
 }
 
 export function PlaceScreen({ setPlaceUuid }: IProps): JSX.Element {
-  // const [selectedPlaceUuid, setSelectedPlaceUuid] = useState<string>("");
-
   return (
     <>
       <SelectPlace setSelectedPlaceUuid={setPlaceUuid} />
