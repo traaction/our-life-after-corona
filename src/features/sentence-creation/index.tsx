@@ -40,7 +40,7 @@ export function SentenceCreation(): JSX.Element {
         <Card>
           <div className="SentenceCreation__content">
             <>
-              <p>After the corona pandemic, I want to do...</p>
+              After the corona pandemic, I want to do...
               <SelectActivity {...{ setActivityUuid }} />
               in <SelectPlace setSelectedPlaceUuid={setPlaceUuid} />
             </>
@@ -55,6 +55,7 @@ export function SentenceCreation(): JSX.Element {
                   activityUuid,
                   placeUuid,
                   userLocation: {
+                    // TODO: Add user location
                     lat: 0,
                     long: 0
                   }
@@ -67,6 +68,7 @@ export function SentenceCreation(): JSX.Element {
           </div>
         </Card>
       </Grid>
+
       <Grid item xs={2} />
     </Grid>
   );
