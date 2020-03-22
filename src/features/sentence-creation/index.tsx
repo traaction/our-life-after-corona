@@ -52,14 +52,21 @@ export function SentenceCreation(): JSX.Element {
               color="primary"
               disabled={!activityUuid || !placeUuid}
               onClick={() => {
+                let lat: number = 0;
+                if (latitude) {
+                  lat = latitude;
+                }
+
+                let long: number = 0;
+                if (longitude) {
+                  long = longitude;
+                }
+
                 const newSentence: INewSentence = {
                   userUuid: cookies[COOKIE_NAME],
                   activityUuid,
                   placeUuid,
-                  userLocation: {
-                    lat: latitude,
-                    long: longitude
-                  }
+                  userLocation: { lat, long }
                 };
                 createNewSentence(newSentence);
               }}
