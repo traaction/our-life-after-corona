@@ -44,9 +44,4 @@ jobs:
         path: build
     
     - name: Build and push container
-    - uses: actions/checkout@v1
-    - uses: actions/download-artifact@v1
-      with:
-        name: react-app-build
-        path: build
     - run: ls -la build
