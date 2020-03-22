@@ -34,14 +34,17 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+    
     - run: npm ci
+   
     - run: npm build
       env:
         CI: true
+    
     - uses: actions/upload-artifact@v1
       with:
         name: react-app-build
         path: build
     
     - name: Build and push container
-    - run: ls -la build
+      run: ls -la build
