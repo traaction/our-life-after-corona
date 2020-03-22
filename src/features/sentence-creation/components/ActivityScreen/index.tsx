@@ -1,34 +1,17 @@
-import React, { useState } from "react";
-import { SelectActivity } from "../SelectActivity";
-import { IconButton } from "@material-ui/core";
-import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
+import React from "react";
 import { UUID } from "../../../../types";
+import { SelectActivity } from "../SelectActivity";
 
 interface IProps {
-  onNext: () => void;
-  setActivity: React.Dispatch<React.SetStateAction<string>>;
+  setActivityUuid: React.Dispatch<React.SetStateAction<UUID>>;
 }
 
-export function ActivityScreen({ onNext, setActivity }: IProps): JSX.Element {
-  const [activityUuidInput, setActivityUuid] = useState<UUID>("");
-
+export function ActivityScreen({ setActivityUuid }: IProps): JSX.Element {
   return (
     <>
-      <p>After the corona pandemic, I want to...</p>
+      <p>After the corona pandemic, I want to do...</p>
 
       <SelectActivity {...{ setActivityUuid }} />
-
-      <IconButton
-        aria-label="next"
-        color="primary"
-        disabled={!activityUuidInput}
-        onClick={() => {
-          setActivity(activityUuidInput);
-          onNext();
-        }}
-      >
-        <ArrowForwardIcon fontSize="large" />
-      </IconButton>
     </>
   );
 }

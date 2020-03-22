@@ -1,21 +1,11 @@
 import { TextField } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
-import fetch from "cross-fetch";
 import React, { useEffect, useState } from "react";
-import { IActivity, UUID } from "../../../../types";
-
-const ACTIVITY_URL = "http://localhost:8080/activities";
+import { IActivity, UUID, EChangeReason } from "types";
+import { createNewActivity, getActivitiesForQuery } from "utils/api";
 
 interface IProps {
   setActivityUuid: React.Dispatch<React.SetStateAction<UUID>>;
-}
-
-enum EChangeReason {
-  createOption = "create-option",
-  selectOption = "select-option",
-  removeOption = "remove-option",
-  blur = "blur",
-  "clear" = "clear"
 }
 
 export function SelectActivity({ setActivityUuid }: IProps): JSX.Element {
@@ -26,9 +16,10 @@ export function SelectActivity({ setActivityUuid }: IProps): JSX.Element {
 
   useEffect(() => {
     async function loadActivities() {
-      const response = await fetch(`${ACTIVITY_URL}/${activityQuery}`);
-      const data: IActivity[] = await response.json();
-      setActivities(data);
+      const activities: IActivity[] = await getActivitiesForQuery(
+        activityQuery
+      );
+      setActivities(activities);
     }
 
     if (activityQuery.length > 0) {
@@ -36,26 +27,18 @@ export function SelectActivity({ setActivityUuid }: IProps): JSX.Element {
     }
   }, [activityQuery]);
 
-  async function createNewActivity(newActivityName: string): Promise<any> {
-    // const requestBody = {
-    //   // put data in
-    // };
-    // const response = await fetch(CREATE_NEW_ACTIVITY_URL, {
-    //   method: "POST",
-    //   body: requestBody
-    // });
-    // return await response.json();
-  }
-
-  function onTextFieldBlur(): void {
+  async function onTextFieldBlur(): Promise<void> {
     const selectedActivity = activities.filter(
       activity => activity.name === selectedActivityName
     );
 
     if (selectedActivity.length > 0) {
       setActivityUuid(selectedActivity[0].uuid!);
-    } else {
-      createNewActivity(selectedActivityName);
+    } else if (selectedActivityName) {
+      const res = await createNewActivity(selectedActivityName);
+      if (res) {
+        setActivityUuid(res.uuid);
+      }
     }
   }
 

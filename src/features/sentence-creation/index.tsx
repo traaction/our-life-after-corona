@@ -6,11 +6,14 @@ import uuidV4 from "uuid/v4";
 import { ActivityScreen } from "./components/ActivityScreen";
 import { PlaceScreen } from "./components/PlaceScreen";
 import "./index.scss";
+import { IconButton } from "@material-ui/core";
+import CheckIcon from "@material-ui/icons/Check";
+import { INewSentence } from "types";
+import { createNewSentence } from "utils/api";
 
 const COOKIE_NAME = "our-life-after-corona_user-uuid";
 
 export function SentenceCreation(): JSX.Element {
-  const [showActivityScreen, setShowActivityScreen] = useState<boolean>(true);
   const [cookies, setCookie] = useCookies([COOKIE_NAME]);
 
   const [activityUuid, setActivityUuid] = useState<string>("");
@@ -18,12 +21,11 @@ export function SentenceCreation(): JSX.Element {
 
   useEffect(() => {
     console.log({
-      showActivityScreen,
       activityUuid,
       placeUuid,
       userUuid: cookies[COOKIE_NAME]
     });
-  }, [showActivityScreen, activityUuid, placeUuid, cookies]);
+  }, [activityUuid, placeUuid, cookies]);
 
   // Setup cookie with userID
   useEffect(() => {
@@ -46,15 +48,28 @@ export function SentenceCreation(): JSX.Element {
       <Grid item xs={12}>
         <Card>
           <div className="SentenceCreation__content">
-            {showActivityScreen && (
-              <ActivityScreen
-                setActivity={setActivityUuid}
-                onNext={() => {
-                  setShowActivityScreen(false);
-                }}
-              />
-            )}
-            {!showActivityScreen && <PlaceScreen {...{ setPlaceUuid }} />}
+            <ActivityScreen {...{ setActivityUuid }} />
+            <PlaceScreen {...{ setPlaceUuid }} />
+
+            <IconButton
+              aria-label="next"
+              color="primary"
+              disabled={!activityUuid || !placeUuid}
+              onClick={() => {
+                const newSentence: INewSentence = {
+                  userUuid: cookies[COOKIE_NAME],
+                  activityUuid,
+                  placeUuid,
+                  userLocation: {
+                    lat: 0,
+                    long: 0
+                  }
+                };
+                createNewSentence(newSentence);
+              }}
+            >
+              <CheckIcon fontSize="large" />
+            </IconButton>
           </div>
         </Card>
       </Grid>
