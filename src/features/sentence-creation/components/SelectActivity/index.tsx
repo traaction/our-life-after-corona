@@ -2,7 +2,7 @@ import { TextField } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
 import fetch from "cross-fetch";
 import React, { useEffect, useState } from "react";
-import { IActivity, UUID } from "../../types";
+import { IActivity, UUID } from "../../../../types";
 
 const ACTIVITY_URL = "http://localhost:8080/activities";
 
@@ -64,11 +64,11 @@ export function SelectActivity({ setActivityUuid }: IProps): JSX.Element {
       style={{ width: 300 }}
       options={activities}
       autoHighlight
-      blurOnSelect={true}
-      freeSolo={true}
+      blurOnSelect
+      freeSolo
+      selectOnFocus
       getOptionLabel={option => option.name}
       renderOption={option => option.name}
-      selectOnFocus={true}
       onInputChange={(event, input: string, reason: string) => {
         switch (reason) {
           case EChangeReason.clear: {

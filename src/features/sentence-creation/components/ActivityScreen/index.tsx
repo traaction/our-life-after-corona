@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { SelectActivity } from "../SelectActivity";
 import { IconButton } from "@material-ui/core";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
-import { UUID } from "../../types";
+import { UUID } from "../../../../types";
 
 interface IProps {
   onNext: () => void;
@@ -14,7 +14,8 @@ export function ActivityScreen({ onNext, setActivity }: IProps): JSX.Element {
 
   return (
     <>
-      <p>After the corona pandemic, I want to</p>
+      <p>After the corona pandemic, I want to...</p>
+
       <SelectActivity {...{ setActivityUuid }} />
 
       <IconButton
