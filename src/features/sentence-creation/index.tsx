@@ -1,15 +1,14 @@
-import { Grid } from "@material-ui/core";
+import { Grid, IconButton } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
+import CheckIcon from "@material-ui/icons/Check";
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
-import uuidV4 from "uuid/v4";
-import { ActivityScreen } from "./components/ActivityScreen";
-import { PlaceScreen } from "./components/PlaceScreen";
-import "./index.scss";
-import { IconButton } from "@material-ui/core";
-import CheckIcon from "@material-ui/icons/Check";
 import { INewSentence } from "types";
 import { createNewSentence } from "utils/api";
+import uuidV4 from "uuid/v4";
+import { SelectActivity } from "./components/SelectActivity";
+import { SelectPlace } from "./components/SelectPlace";
+import "./index.scss";
 
 const COOKIE_NAME = "our-life-after-corona_user-uuid";
 
@@ -18,14 +17,6 @@ export function SentenceCreation(): JSX.Element {
 
   const [activityUuid, setActivityUuid] = useState<string>("");
   const [placeUuid, setPlaceUuid] = useState<string>("");
-
-  useEffect(() => {
-    console.log({
-      activityUuid,
-      placeUuid,
-      userUuid: cookies[COOKIE_NAME]
-    });
-  }, [activityUuid, placeUuid, cookies]);
 
   // Setup cookie with userID
   useEffect(() => {
@@ -48,8 +39,11 @@ export function SentenceCreation(): JSX.Element {
       <Grid item xs={12}>
         <Card>
           <div className="SentenceCreation__content">
-            <ActivityScreen {...{ setActivityUuid }} />
-            <PlaceScreen {...{ setPlaceUuid }} />
+            <>
+              After the corona pandemic, I want to do...
+              <SelectActivity {...{ setActivityUuid }} />
+              in <SelectPlace setSelectedPlaceUuid={setPlaceUuid} />
+            </>
 
             <IconButton
               aria-label="next"
@@ -61,6 +55,7 @@ export function SentenceCreation(): JSX.Element {
                   activityUuid,
                   placeUuid,
                   userLocation: {
+                    // TODO: Add user location
                     lat: 0,
                     long: 0
                   }
@@ -73,6 +68,7 @@ export function SentenceCreation(): JSX.Element {
           </div>
         </Card>
       </Grid>
+
       <Grid item xs={2} />
     </Grid>
   );
